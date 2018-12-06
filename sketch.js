@@ -1,7 +1,9 @@
 
 const dim = 500;
+const tollerance = 20;
 const off = -Math.PI/2-Math.PI/12;
 const ds = 20;
+const speed = 12;
 
 let d1Pos, d2Pos;
 let d1Vel, d2Vel;
@@ -11,11 +13,14 @@ let howLong=0;
 let diceCt=0;
 let bg;
 
+let level = "Normal";
+
 function setup() {
-  createCanvas(dim,dim);
+  let sketch = createCanvas(dim,dim);
+  sketch.parent('sketchParent');
   bg = loadImage("circle5ths.png");
-  d1Pos = createVector(0,0);
-  d2Pos = createVector(dim-ds,0);
+  d1Pos = createVector((dim-ds)/2,(dim-ds)/2);
+  d2Pos = createVector((dim-ds)/2,(dim-ds)/2);
   d1Vel = createVector(0,0);
   d2Vel = createVector(0,0);
 }
@@ -52,16 +57,32 @@ function draw() {
       handleWallColide(d1Pos, d1Vel);
       handleWallColide(d2Pos, d2Vel);
 
-      d1Val = (d1Val + 1) % 2;
-      d2Val = (d2Val + 1) % 12;
+      d2Val = (d2Val + 1) % 12; // just for animation purposes
     }
   }
 }
 
 function getResult() {
+  let x = random();
+  let y = 0;
+  let freqs;
+  if(random() < levelParameters[level].majorPr) {
+    d1Val = 0;
+    freqs = levelParameters[level].majorFreqs;
+  }
+  else {
+    d1Val = 1;
+    freqs = levelParameters[level].minorFreqs;
+  }
+  for (var i = 0; i < freqs.length; i++) {
+    y += freqs[i];
+    if(x < y) {
+      d2Val = i;
+      break;
+    }
+  }
+
   let txt = "Result: ";
-  let majorKeys = ["C","G","D","A","E","B","F#","D♭","A♭","E♭","B♭","F♭"];
-  let minorKeys = ["a","e","b","f#","c#","g#","e♭","b♭","f","c","g","d"];
   if (d1Val == 0) {
     txt += majorKeys[d2Val] + " major";
   }
@@ -72,17 +93,17 @@ function getResult() {
 }
 
 function handleWallColide(pos, vel) {
-  if (pos.x+ds>dim && vel.x>0) {
+  if (pos.x+ds>dim-tollerance && vel.x>0) {
     vel.x = -vel.x;
   }
-  else if (pos.x<0 && vel.x<0)
+  else if (pos.x<tollerance && vel.x<0)
   {
     vel.x = -vel.x;
   }
-  if (pos.y+ds>dim && vel.y>0) {
+  if (pos.y+ds>dim-tollerance && vel.y>0) {
     vel.y = -vel.y;
   }
-  else if (pos.y<0 && vel.y<0)
+  else if (pos.y<tollerance && vel.y<0)
   {
     vel.y = -vel.y;
   }
@@ -91,20 +112,17 @@ function handleWallColide(pos, vel) {
 function randVelComponent(){
   if (random() < 0.5)
   {
-    return -16*(random()+1);
+    return -speed*(random()+1);
   }
   else {
-    return 16*(random()+1);
+    return speed*(random()+1);
   }
 }
 
 function rollDice() {
   console.log("dice rolled");
   diceRolling = true;
-  howLong = 100+round(random()*100);
-  if (random() < 0.8) {
-    howLong += howLong % 2;
-  }
+  howLong = 13*7;
   diceCt = 0;
   d1Vel = createVector(randVelComponent(), randVelComponent());
   d2Vel = createVector(randVelComponent(), randVelComponent());

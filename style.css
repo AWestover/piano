@@ -1,0 +1,14 @@
+#rollbtn {
+	background-color: lightblue;
+	width: 100%;
+}
+
+.lvl {
+	background-color: lightgreen;
+}
+
+#sketchParent {
+	background-color: grey;
+	width: 500px;
+	margin: auto;
+}

@@ -6,19 +6,25 @@
     <title>Piano Dice Game</title>
     <script src="libs/p5.min.js" type="text/javascript"></script>
     <script src="libs/jquery.min.js" charset="utf-8"></script>
-    <style media="screen">
-      body {
-        background-color: lightgrey;
-      }
-    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <script src="levelParameters.js" charset="utf-8"></script>
     <script src="sketch.js" charset="utf-8"></script>
     <div class="container">
         <h1>Piano Dice Game</h1>
         <p>This game will help you learn about the circle of 5ths</p>
-        <button type="button" name="button" onclick="rollDice()">Roll the Dice</button>
+        <button id="rollbtn" class="btn btn-lg" type="button" name="button" onclick="rollDice()">Roll the Dice</button>
+        <div>
+          <h2 id="lvlTxt">Level: Normal</h2>
+          <button class="btn lvl" onclick="switchLevel('Really Easy')">Really Easy</button>
+          <button class="btn lvl" onclick="switchLevel('Normal')">Normal</button>
+          <button class="btn lvl" onclick="switchLevel('Super Hard')">Super Hard</button>
+        </div>
         <h2 id="result">Result:</h2>
+        <div id="sketchParent"></div>
     </div>
   </body>
 </html>
