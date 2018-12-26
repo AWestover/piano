@@ -12,6 +12,7 @@ let diceRolling=false;
 let howLong=0;
 let diceCt=0;
 let bg;
+let lastD2Val = 6;
 
 let level = "Normal";
 
@@ -74,11 +75,23 @@ function getResult() {
     d1Val = 1;
     freqs = levelParameters[level].minorFreqs;
   }
-  for (var i = 0; i < freqs.length; i++) {
-    y += freqs[i];
-    if(x < y) {
-      d2Val = i;
-      break;
+  let newResult = false;
+  while (!newResult){
+    for (var i = 0; i < freqs.length; i++) {
+      y += freqs[i];
+      if(x < y) {
+        if (i != lastD2Val) {
+          d2Val = i;
+          lastD2Val = i;
+          newResult = true;
+          break;
+        }
+        else {
+          y = 0;
+          x = random();
+          break;
+        }
+      }
     }
   }
 
@@ -122,7 +135,7 @@ function randVelComponent(){
 function rollDice() {
   console.log("dice rolled");
   diceRolling = true;
-  howLong = 13*7;
+  howLong = 13*6+round(random()*12);
   diceCt = 0;
   d1Vel = createVector(randVelComponent(), randVelComponent());
   d2Vel = createVector(randVelComponent(), randVelComponent());
