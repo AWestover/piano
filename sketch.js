@@ -14,7 +14,7 @@ let diceCt=0;
 let bg;
 let lastD2Val = 6;
 
-let level = "Normal";
+let level = "All Majors";
 
 function setup() {
   let sketch = createCanvas(dim,dim);
