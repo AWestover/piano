@@ -63,6 +63,12 @@ function draw() {
   }
 }
 
+function mouseReleased() {
+	if(Math.pow(mouseX-250,2)+Math.pow(mouseY-250,2) < 60000){
+		rollDice();
+	}
+}
+
 function getResult() {
   let x = random();
   let y = 0;
