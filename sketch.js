@@ -1,5 +1,5 @@
 
-const dim = 500;
+let dim = Math.min(window.innerWidth, window.innerHeight);
 const tollerance = 20;
 const off = -Math.PI/2-Math.PI/12;
 const ds = 20;
@@ -64,7 +64,7 @@ function draw() {
 }
 
 function mouseReleased() {
-	if(Math.pow(mouseX-250,2)+Math.pow(mouseY-250,2) < 60000){
+	if(Math.pow(mouseX-width/2,2)+Math.pow(mouseY-height/2,2) < Math.pow(width/2,2)){
 		rollDice();
 	}
 }

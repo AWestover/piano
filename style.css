@@ -8,7 +8,7 @@
 }
 
 #sketchParent {
-	background-color: grey;
-	width: 500px;
-	margin: auto;
+	/*background-color: grey;*/
+	width: 100%;
+	margin: 0;
 }
